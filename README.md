@@ -28,3 +28,8 @@ Clone from [vue-element-admin](https://panjiachen.github.io/vue-element-admin)
 $ yarn
 $ yarn serve
 ```
+
+## 느낀점
+
+- Element-ui 처럼 css 프레임워크가 있는 경우, Storybook은 css 프레임워크가 제공하지 않는 커스텀한 UI 컴퍼넌트를 대상으로만 해야함.(ex - Datepicker)
+- 이외의 기초적인 UI 컴퍼넌트(버튼, 모달 등)들은 커스텀이 많지 않을 경우 비효율.
