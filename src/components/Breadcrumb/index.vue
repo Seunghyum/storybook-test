@@ -1,5 +1,5 @@
 <template>
-  <el-breadcrumb class="app-breadcrumb" separator="/">
+  <el-breadcrumb id="app-breadcrumb" class="app-breadcrumb" separator="/">
     <transition-group name="breadcrumb">
       <el-breadcrumb-item v-for="(item,index) in levelList" :key="item.path">
         <span v-if="item.redirect==='noRedirect'||index==levelList.length-1" class="no-redirect">{{ item.meta.title }}</span>
@@ -13,13 +13,18 @@
 import pathToRegexp from 'path-to-regexp'
 
 export default {
+  name: 'BreadCrump',
   data() {
     return {
       levelList: null
     }
   },
   watch: {
-    $route() {
+    $route(route) {
+      // if you go to the redirect page, do not update the breadcrumbs
+      if (route.path.startsWith('/redirect/')) {
+        return
+      }
       this.getBreadcrumb()
     }
   },
@@ -29,6 +34,8 @@ export default {
   methods: {
     getBreadcrumb() {
       // only show routes with meta.title
+      console.log('this.levelList : ', this.levelList)
+      if (!this.$route) return this.levelList
       let matched = this.$route.matched.filter(item => item.meta && item.meta.title)
       const first = matched[0]
 
